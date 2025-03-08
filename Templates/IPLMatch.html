@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRICKET PROGNOSTICATOR</title>
+    <link rel="icon" href="https://i.pinimg.com/550x/78/1d/67/781d6783a1465bcfd437146c334f783c.jpg">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .team-image {
+            width: 100px;
+            height: 100px;
+        }
+        .btn-block {
+            margin-top: 20px;
+        }
+        h2 {
+            color: black;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function updateTeamImage(team, elementId) {
+            const imgElement = document.getElementById(elementId);
+            if (team) {
+                imgElement.src = `/static/IPL/${team.toLowerCase().replace(' ', '_')}.png`;
+                imgElement.alt = team;
+            } else {
+                imgElement.src = '';
+                imgElement.alt = 'Team Logo';
+            }
+        }
+        function validateTeams() {
+            const team1 = document.querySelector('[name="team1"]').value;
+            const team2 = document.querySelector('[name="team2"]').value;
+            if (team1 === team2) {
+                alert('Cannot predict the match of the same teams.');
+                return false;
+            }
+            return true;
+        }
+
+        function updateTossOptions() {
+            const team1 = document.getElementById('batting_team').value;
+            const team2 = document.getElementById('bowling_team').value;
+            const tossDropdown = document.getElementById('toss');
+
+            // Clear current options
+            tossDropdown.innerHTML = '';
+
+            // Add options for TEAM 1 and TEAM 2
+            if (team1) {
+                const option1 = document.createElement('option');
+                option1.value = team1;
+                option1.textContent = team1;
+                tossDropdown.appendChild(option1);
+            }
+            if (team2) {
+                const option2 = document.createElement('option');
+                option2.value = team2;
+                option2.textContent = team2;
+                tossDropdown.appendChild(option2);
+            }
+        }
+
+        $(document).ready(function () {
+            // Initialize default images
+            updateTeamImage($('#batting_team').val(), 'batting_team_image');
+            updateTeamImage($('#bowling_team').val(), 'bowling_team_image');
+
+            // Update team images and toss options on team selection change
+            $('#batting_team').change(function () {
+                updateTeamImage(this.value, 'batting_team_image');
+                updateTossOptions();
+            });
+
+            $('#bowling_team').change(function () {
+                updateTeamImage(this.value, 'bowling_team_image');
+                updateTossOptions();
+            });
+
+            // Initialize toss options on page load
+            updateTossOptions();
+        });
+    </script>
+</head>
+<body>
+    {% include 'Nav.html' %}
+    <div class="container text-center">
+        <div class="row">
+            <!-- Batting Team Image -->
+            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                <img id="batting_team_image" class="team-image" src="" alt="Batting Team">
+            </div>
+
+            <!-- Main Form and Prediction -->
+            <div class="col-md-8">
+                <h1>IPL Match Prediction</h1>
+                <form method="POST" action="{{ url_for('IPLMatch') }}" onsubmit="return validateTeams()">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="batting_team">TEAM 1</label>
+                            <select class="form-control" name="team1" id="batting_team">
+                                <option value="">Select Team</option>
+                                {% for team in teams %}
+                                <option value="{{ team }}">{{ team }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="bowling_team">TEAM 2</label>
+                            <select class="form-control" name="team2" id="bowling_team">
+                                <option value="">Select Team</option>
+                                {% for team in teams %}
+                                <option value="{{ team }}">{{ team }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="toss">Toss Winner:</label>
+                            <select class="form-control" name="toss" id="toss" required>
+                                <!-- Options populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="venue">Venue:</label>
+                            <select class="form-control" name="venue" id="venue" required>
+                                {% for venue in venues %}
+                                <option value="{{ venue }}">{{ venue }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="city">City:</label>
+                            <select class="form-control" name="city" id="city">
+                                {% for city in cities %}
+                                <option value="{{ city }}">{{ city }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="toss_decision">Toss Decision:</label>
+                            <select class="form-control" name="toss_decision" required>
+                                <option value="bat">Bat</option>
+                                <option value="field">Field</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Predict</button>
+                    <button type="button" class="btn btn-secondary btn-block">
+                        <a href="/IPLhome" style="text-decoration: none; color: white;">Back</a>
+                    </button>
+                </form>
+
+                {% if prediction %}
+                <div class="alert alert-info mt-4 text-center" role="alert">
+                    <h2>{{ selected_team1 }} vs {{ selected_team2 }} <pre></pre>Predicted : {{ prediction }} will win the match</h2>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Bowling Team Image -->
+            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                <img id="bowling_team_image" class="team-image" src="" alt="Bowling Team">
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>

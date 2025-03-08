@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CRICKET PROGNOSTICATOR</title>
+        <link rel="icon"  href="https://i.pinimg.com/550x/78/1d/67/781d6783a1465bcfd437146c334f783c.jpg">
+        <style>
+            body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+header {
+  color: black;
+  text-align: center;
+}
+
+.img {
+  width: 1300px;
+  height: 500px;
+  border-radius: 10px;
+  border-style: hidden;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.section {
+  display: flex;
+  justify-content: space-between;
+}
+
+h1,  h3 {
+  color: #ff6347ee;
+}
+h2{
+  color:burlywood;
+}
+
+.match-card, .blog-card {
+  background-color: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.match-card h3, .blog-card h3 {
+  margin-top: 0;
+}
+
+.footer {
+  text-align: center;
+  color: #a69898db;
+  font-size: 0.9em;
+  padding: 10px;
+  border-top: 1px solid hwb(0 99% 1% / 0.818);
+  margin-top: 20px;
+}
+
+.fa {
+  color: blue;
+}
+
+.In {
+  color: pink;
+}
+
+.Tw {
+  color: navy;
+}
+
+        </style>
+    </head>
+    <body>
+        {% include 'Nav.html' %}
+        <h2>{{greeting}}</h2>
+        <h1>Hi {{ username }}</h1>
+            <header>
+                <img src="https://img.freepik.com/free-photo/cricket-equipment-digital-art_23-2151761236.jpg" alt="Cricket image" class='img'/>
+                <div class="tagline">
+                    <h4>Your ultimate destination for cricket predictions and analysis!</h4>
+                </div>
+            </header>
+            <main>
+                <div class="container">
+                    <h2>Upcoming Matches</h2>
+                    <div class="section">
+    
+                        <div class="match-card">
+                           <a href="{{url_for('T20home')}}"> <h3>India vs Australia</h3></a>
+                            <p>Predict the winner </p>
+                        </div>
+    
+                        <div class="match-card">
+                          <a href="{{url_for('T20home')}}"><h3>England vs South Africa</h3></a>
+                            <p>Get insights and expert opinions on the game.</p>
+                        </div>
+    
+                        <div class="match-card">
+                          <a href="{{url_for('T20home')}}"><h3>Pakistan vs New Zealand</h3></a>
+                            <p>Analyze player performance and team strategies.</p>
+                        </div>
+                    </div>
+    
+                    <h2>Latest Blog Posts</h2>
+                    <div class="section">
+    
+                        <div class="blog-card">
+                            <h3>Top 5 Cricketing Moments of 2024</h3>
+                            <p>Relive the most exciting cricket highlights of the year.</p>
+                        </div>
+    
+                        <div class="blog-card">
+                            <h3>How to Predict Match Outcomes</h3>
+                            <p>Learn the art and science behind cricket prediction.</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            {% include 'footer.html' %}
+        </div>
+    </body>
+    </html>
+    

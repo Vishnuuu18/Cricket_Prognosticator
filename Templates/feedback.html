@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRICKET PROGNOSTICATOR</title>
+    <link rel="icon"  href="https://i.pinimg.com/550x/78/1d/67/781d6783a1465bcfd437146c334f783c.jpg">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'Nav.html' %}
+
+    {% if feedback_submitted %}
+    <div class="alert alert-success text-center" role="alert">
+        <h3 style="color: green;">Thank you for your feedback!</h3>
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <h1>We Value Your Feedback</h1>
+        <form method="POST" action="{{ url_for('feedback') }}">
+            <div class="form-group">
+                <label for="name">Your Name:</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Your Email:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Your Feedback:</label>
+                <textarea class="form-control" id="message" name="message" rows="4" placeholder="Write your feedback here" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-submit btn-block">Submit Feedback</button>
+        </form>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>
+

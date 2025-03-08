@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRICKET PROGNOSTICATOR</title>
+    <link rel="icon"  href="https://i.pinimg.com/550x/78/1d/67/781d6783a1465bcfd437146c334f783c.jpg">
+</head>
+<style>
+    /* Reset body styles */
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Center the button container */
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px; /* Add space between buttons */
+        height: 100%; /* Full viewport height */
+    }
+
+    /* Reset button styles */
+    button {
+        background: none;
+        border: none;
+        padding: 0;
+    }
+
+    /* Style the button */
+    .score-button {
+        display: inline-block;
+        background-color: #007bff; /* Blue color */
+        color: white;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    /* Remove underline and inherit color for the link */
+    .score-button a {
+        text-decoration: none;
+        color: inherit;
+        display: inline-block;
+    }
+
+    /* Hover effect for the button */
+    .score-button:hover {
+        background-color: #0056b3; /* Darker blue */
+        transform: translateY(-2px);
+    }
+
+    /* Focus effect for accessibility */
+    .score-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+    }
+
+    /* WIN button specific style */
+    .win {
+        background-color: aqua;
+    }
+</style>
+<body>
+    {% include 'Nav.html' %}
+    <div class="button-container">
+        <button class="score-button"><a href="/T20home/Score">SCORE</a></button>
+        <button class="score-button win"><a href="/T20home/MatchDetails">WIN</a></button>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>
+

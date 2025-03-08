@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRICKET PROGNOSTICATOR</title>
+    <style>
+        #navhead {
+            display: flex;
+            justify-content: space-between;
+            background-color: rgb(231, 245, 249);
+            margin: auto;
+            padding: 20px;
+        }
+
+        .ar {
+            color: white;
+            gap: 30px;
+            text-wrap-style: balance;
+            display: flex;
+            justify-content: flex-start;
+            flex-grow: 1;  /* Ensure this part takes up the left side */
+        }
+
+        .right-nav {
+            display: flex;
+            justify-content: flex-end;  /* This moves the links to the right */
+            gap: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            text-align: center;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;  /* Ensure that nav stretches across the full width */
+        }
+
+        .s {
+            border-radius: 5px; 
+            border-style: hidden;
+            height: 30px;
+        }
+
+        .tag {
+            background-color: sandybrown;
+        }
+
+        .login {
+            background-color: #e9d1d9;
+        }
+
+        .sign {
+            background-color: hsl(9, 76%, 66%);
+        }
+
+        .form {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        #as {
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header id="navhead">
+        <nav class="ar">
+            <a href="/">HOME</a>
+            <a href="{{url_for('T20home')}}">T20</a>
+            <a href="{{url_for('IPLhome')}}">IPL</a>
+        </nav>
+        <div class="right-nav">
+            <a href="{{ url_for('feedback') }}">Feedback</a>
+            <form class="form">
+                <div id="as">
+                    <!-- Conditional Rendering: Show Login/Signup or Logout -->
+                    {% if session.get('logged_in') %}
+                        <button type="button" class="s login"><a href="{{ url_for('logout') }}">Logout</a></button>
+                    {% else %}
+                        <button type="button" class="s login"><a href="{{ url_for('login') }}">Login</a></button>
+                        <button type="button" class="s sign"><a href="{{ url_for('signup') }}">Signup</a></button>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </header>
+
+    <!-- Content specific to each page will be injected here -->
+    {% block content %}{% endblock %}
+</body>
+</html>
+
